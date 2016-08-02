@@ -2,35 +2,29 @@ sudo: required
 dist: trusty
 language: python
 python:
-  - "2.7"
+- '2.7'
 services:
-  - docker
+- docker
 env:
   global:
-    - PATH="/usr/bin:$PATH"
-
+  - PATH="/usr/bin:$PATH"
+  - secure: YnCUMEQRYVajYfqLww1FlJBSfQtTeILY/4kg/8JrSF0HwuQlLkUskag/dJwinFFZ7xtH+s3NdKyESuSrrDFAN9YJmS/J17JWnCLJEDRG8ZRPH9lqfurKw81xRnuv1fFrWZNCNha2iuYe6jzqG2JmYjH7iKrXH8ngFRTktqctBKC+UlDf7LuRol+hUvpeD08/abVMXzsKV3mVlNW9YEPNXhiaVyGMTc5beBf5VGI7rHBCMXpDruqPgYHv/9SEXo2nMgBujtsGGQyVcQGSkTTfEaBlF+0vy5AtPsIpJbRzjvKYcZNtWousgi5YdoR7WqGYAQjH6kevHKrxjkS9qE3ScVw9Ll/ABjC0WagrlDNU41SP1Bz2sGty3Kzbg4nZSB4KBXYdSA/kH6QjBOtyqGYkgmQTjJ+cUk1xptqb0SHQ6tCT71TiUihUr/fBHx3FvALkwK9gm7/MvQCkWf6rDQmMmKwJvYGkTysGDsByqALvcYT6fWjyfIOQ9ovzvqFrJKAu7jWKNwidPfJUbkrhliliQOrPftfbuYj/cTovCmk6OWXmA3YDyFmr0DyhbjdGLQ3AdKD4ls/62qWCG2dZoyuot3YR5RhHVc3RGo90GoKnuM17KoTyhO1ZfoqQFB/nDP/tFFyF5neaGCuyJzATRVqtSPxoMln10H5cbgnbo1byxr8=
 before_install:
-    # Ansible doesn't play well with virtualenv
-  - deactivate
-  - sudo apt-get update -qq
-  - sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-engine
-
+- deactivate
+- sudo apt-get update -qq
+- sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-engine
 install:
-  - sudo pip install docker-py
-    # software-properties-common for ubuntu 14.04
-    # python-software-properties for ubuntu 12.04
-  - sudo apt-get install -y sshpass software-properties-common python-software-properties
-  - sudo apt-add-repository -y ppa:ansible/ansible
-  - sudo apt-get update -qq
-  - sudo apt-get install -y ansible
-  - sudo rm /usr/bin/python && sudo ln -s /usr/bin/python2.7 /usr/bin/python
-  - ansible-galaxy install -r tests/requirements.yml -p tests/roles/
-
+- sudo pip install docker-py
+- sudo apt-get install -y sshpass software-properties-common python-software-properties
+- sudo apt-add-repository -y ppa:ansible/ansible
+- sudo apt-get update -qq
+- sudo apt-get install -y ansible
+- sudo rm /usr/bin/python && sudo ln -s /usr/bin/python2.7 /usr/bin/python
+- ansible-galaxy install -r tests/requirements.yml -p tests/roles/
 script:
-  # Ensure any invocation of ansible-playbook (i.e. sudo) results in host_key_checking disabled
-  - sudo ansible all -i "127.0.0.1," -m lineinfile -a "regexp=^#host_key_checking dest=/etc/ansible/ansible.cfg line='host_key_checking = False'" -c local
-  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
-  - sudo ansible-playbook -i tests/inventory tests/test.yml
-
+- sudo ansible all -i "127.0.0.1," -m lineinfile -a "regexp=^#host_key_checking dest=/etc/ansible/ansible.cfg
+  line='host_key_checking = False'" -c local
+- ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+- sudo ansible-playbook -i tests/inventory tests/test.yml
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

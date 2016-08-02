@@ -17,7 +17,7 @@
     ssmtp_mailhub_host: smtp.gmail.com
     ssmtp_mailhub_port: 587
     ssmtp_auth_user: "ssmtp.test1@gmail.com"
-    ssmtp_auth_password: "8h&4BGgJ^b"
+    ssmtp_auth_password: "{{ lookup('env','GMAIL_PASSWORD') }}"
     ssmtp_use_tls: "YES"
     ssmtp_starttls: "YES"
     ssmtp_rewrite_domain: "gmail.com"
