@@ -1,4 +1,4 @@
-Role Name
+SSMTP Role
 =========
 
 A brief description of the role goes here.
@@ -10,9 +10,22 @@ Any pre-requisites that may not be covered by Ansible itself or the role should 
 
 Role Variables
 --------------
-
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
-
+Defaults:
+* ssmtp_authorized_user:
+* ssmtp_authorized_group: ssmtp
+* ssmtp_postmaster:
+* ssmtp_mailhub_host:
+* ssmtp_mailhub_port:
+* ssmtp_auth_method: LOGIN
+* ssmtp_auth_user:
+* ssmtp_auth_password:
+* ssmtp_use_tls:
+* ssmtp_starttls: "YES"
+* ssmtp_starttls:
+* ssmtp_rewrite_domain:
+* ssmtp_from_line_override:
+* ssmtp_docker_host: no
+* ssmtp_hostname: "{{ ansible_hostname }}"
 Dependencies
 ------------
 
