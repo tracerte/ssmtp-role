@@ -1,0 +1,44 @@
+---
+# tasks file for ssmtp-role
+
+- name: Ensure hostname is resolvable
+  lineinfile:
+    dest: /etc/hosts
+    line: "127.0.0.1 localhost {{ ansible_hostname }}"
+    regexp: ^127\.0\.0\.1
+  when: not ssmtp_docker_host
+
+- name: Install required package
+  apt: name=ssmtp update_cache=yes state=latest
+
+- name: Create group for restricted usage of ssmtp
+  group: name="{{ ssmtp_authorized_group }}" state=present
+
+- name: Add authorized user to ssmtp usage group
+  user: name="{{ ssmtp_authorized_user }}" groups="{{ ssmtp_authorized_group }}" append=yes
+  when: ssmtp_authorized_user
+
+- name: Restrict ssmtp usage
+  file:
+    dest: /usr/sbin/ssmtp
+    owner: root
+    group: "{{ ssmtp_authorized_group }}"
+    mode: 0770
+
+- name: Install ssmtp configuration file
+  template:
+    dest: "/etc/ssmtp/ssmtp.conf"
+    group: "{{ ssmtp_authorized_group }}"
+    mode: 0640
+    owner: root
+    src: "ssmtp.conf.j2"
+
+- name: Install ssmtp revaliases configuration file
+  template:
+    dest: "/etc/ssmtp/revaliases"
+    group: "{{ ssmtp_authorized_group }}"
+    mode: 0640
+    owner: root
+    src: "revaliases.j2"
+  when: ssmtp_authorized_user
+

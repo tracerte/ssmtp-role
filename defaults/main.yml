@@ -1,0 +1,19 @@
+---
+# defaults file for ssmtp-role
+ssmtp_authorized_user:
+ssmtp_authorized_group: ssmtp
+ssmtp_postmaster:
+ssmtp_mailhub_host:
+ssmtp_mailhub_port:
+ssmtp_auth_method: LOGIN
+ssmtp_auth_user:
+ssmtp_auth_password:
+# ssmtp_use_tls: "YES"
+ssmtp_use_tls:
+# ssmtp_starttls: "YES"
+ssmtp_starttls:
+ssmtp_rewrite_domain:
+# ssmtp_from_line_override: "YES"
+ssmtp_from_line_override:
+ssmtp_docker_host: no
+ssmtp_hostname: "{{ ansible_hostname }}"

@@ -1,0 +1,30 @@
+---
+- name: Bring up docker containers
+  hosts: localhost
+  gather_facts: false
+  vars:
+    inventory:
+      - name: ssmtp_host_1
+        image: "ubuntu-upstart:14.04"
+  roles:
+    - role: provision_docker
+      provision_docker_inventory: "{{ inventory }}"
+
+- name: Run ssmpt tests
+  hosts: docker_containers
+  vars:
+    ssmtp_postmaster: "ssmtp.test1@gmail.com"
+    ssmtp_mailhub_host: smtp.gmail.com
+    ssmtp_mailhub_port: 587
+    ssmtp_auth_user: "ssmtp.test1@gmail.com"
+    ssmtp_auth_password: "8h&4BGgJ^b"
+    ssmtp_use_tls: "YES"
+    ssmtp_starttls: "YES"
+    ssmtp_rewrite_domain: "gmail.com"
+    ssmtp_from_line_override: "YES"
+    ssmtp_docker_host: yes
+  roles:
+    - role: ssmtp-role
+  tasks:
+     - name: Test that ssmtp works
+       script: ./ssmtp_email.sh
