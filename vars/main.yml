@@ -1,2 +1,3 @@
 ---
 # vars file for ssmtp-role
+# ssmtp_authorized_user:

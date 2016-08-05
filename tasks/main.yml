@@ -16,7 +16,7 @@
 
 - name: Add authorized user to ssmtp usage group
   user: name="{{ ssmtp_authorized_user }}" groups="{{ ssmtp_authorized_group }}" append=yes
-  when: ssmtp_authorized_user
+  when: ssmtp_authorized_user|default("") != ""
 
 - name: Restrict ssmtp usage
   file:
@@ -40,5 +40,5 @@
     mode: 0640
     owner: root
     src: "revaliases.j2"
-  when: ssmtp_authorized_user
+  when: ssmtp_authorized_user|default("") != ""
 

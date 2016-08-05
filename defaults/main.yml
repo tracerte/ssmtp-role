@@ -1,6 +1,5 @@
 ---
 # defaults file for ssmtp-role
-ssmtp_authorized_user:
 ssmtp_authorized_group: ssmtp
 ssmtp_postmaster:
 ssmtp_mailhub_host:
