@@ -1,1 +1,3 @@
+{% for ssmtp_authorized_user in ssmtp_authorized_users %}
 {{ ssmtp_authorized_user }}:{{ ssmtp_auth_user }}:{{ ssmtp_mailhub_host }}:{{ ssmtp_mailhub_port }}
+{% endfor %}

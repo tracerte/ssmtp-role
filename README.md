@@ -11,7 +11,7 @@ Any pre-requisites that may not be covered by Ansible itself or the role should 
 Role Variables
 --------------
 Defaults:
-* ssmtp_authorized_user:
+* ssmtp_authorized_users:
 * ssmtp_authorized_group: ssmtp
 * ssmtp_postmaster:
 * ssmtp_mailhub_host:
