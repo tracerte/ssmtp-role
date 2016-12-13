@@ -4,8 +4,9 @@
 - name: Ensure hostname is resolvable
   lineinfile:
     dest: /etc/hosts
-    line: "127.0.0.1 localhost {{ ssmtp_hostname }}"
-    regexp: ^127\.0\.0\.1
+    regexp: '(^127\.0\.0\.1\s*.*?)"{{ ssmtp_hostname }}"?(.*?$)'
+    line: '\1{{ ssmtp_hostname }}\3'
+    backrefs: yes
   when: not ssmtp_docker_host
 
 - name: Install required package
