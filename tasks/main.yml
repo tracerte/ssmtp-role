@@ -4,7 +4,7 @@
 - name: Ensure hostname is resolvable
   lineinfile:
     dest: /etc/hosts
-    line: "127.0.0.1 localhost {{ ansible_hostname }}"
+    line: "127.0.0.1 localhost {{ ssmtp_hostname }}"
     regexp: ^127\.0\.0\.1
   when: not ssmtp_docker_host
 
