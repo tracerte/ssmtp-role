@@ -13,19 +13,14 @@
   apt: name=ssmtp update_cache=yes state=latest
 
 - name: Create group for restricted usage of ssmtp
-  group: name="{{ ssmtp_authorized_group }}" state=present
-
-- name: Add authorized user to ssmtp usage group
-  user: name="{{ item }}" groups="{{ ssmtp_authorized_group }}" append=yes
-  when: ssmtp_authorized_users|default([])
-  with_items: "{{ ssmtp_authorized_users }}"
+  group: name="{{ ssmtp_authorized_group }}" state=present system=yes
 
 - name: Restrict ssmtp usage
   file:
     dest: /usr/sbin/ssmtp
     owner: root
     group: "{{ ssmtp_authorized_group }}"
-    mode: 0770
+    mode: "g+s"
 
 - name: Install ssmtp configuration file
   template:
