@@ -10,10 +10,16 @@
   when: not ssmtp_docker_host
 
 - name: Install required package
-  apt: name=ssmtp update_cache=yes state=latest
+  apt:
+    name: ssmtp
+    update_cache: yes
+    state: latest
 
 - name: Create group for restricted usage of ssmtp
-  group: name="{{ ssmtp_authorized_group }}" state=present system=yes
+  group:
+    name: "{{ ssmtp_authorized_group }}"
+    state: present
+    system: yes
 
 - name: Restrict ssmtp usage
   file:
