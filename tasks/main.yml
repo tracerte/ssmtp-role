@@ -13,7 +13,7 @@
   apt:
     name: ssmtp
     update_cache: yes
-    state: latest
+    state: "{{ ssmtp_package_state }}"
 
 - name: Create group for restricted usage of ssmtp
   group:
