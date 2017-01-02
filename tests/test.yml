@@ -23,7 +23,8 @@
     ssmtp_rewrite_domain: "gmail.com"
     ssmtp_from_line_override: "YES"
     ssmtp_docker_host: yes
-    ssmtp_authorized_user: john
+    ssmtp_authorized_users:
+      - john
   roles:
     - role: ssmtp-role
   # tasks:

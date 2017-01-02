@@ -4,26 +4,29 @@
 - name: Ensure hostname is resolvable
   lineinfile:
     dest: /etc/hosts
-    line: "127.0.0.1 localhost {{ ansible_hostname }}"
-    regexp: ^127\.0\.0\.1
+    regexp: '(^127\.0\.0\.1\s*.*?)"{{ ssmtp_hostname }}"?(.*?$)'
+    line: '\1{{ ssmtp_hostname }}\3'
+    backrefs: yes
   when: not ssmtp_docker_host
 
 - name: Install required package
-  apt: name=ssmtp update_cache=yes state=latest
+  apt:
+    name: ssmtp
+    update_cache: yes
+    state: "{{ ssmtp_package_state }}"
 
 - name: Create group for restricted usage of ssmtp
-  group: name="{{ ssmtp_authorized_group }}" state=present
-
-- name: Add authorized user to ssmtp usage group
-  user: name="{{ ssmtp_authorized_user }}" groups="{{ ssmtp_authorized_group }}" append=yes
-  when: ssmtp_authorized_user|default("") != ""
+  group:
+    name: "{{ ssmtp_authorized_group }}"
+    state: present
+    system: yes
 
 - name: Restrict ssmtp usage
   file:
     dest: /usr/sbin/ssmtp
     owner: root
     group: "{{ ssmtp_authorized_group }}"
-    mode: 0770
+    mode: "g+s"
 
 - name: Install ssmtp configuration file
   template:
@@ -40,5 +43,4 @@
     mode: 0640
     owner: root
     src: "revaliases.j2"
-  when: ssmtp_authorized_user|default("") != ""
-
+  when: ssmtp_authorized_users|default([])

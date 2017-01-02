@@ -1,5 +1,6 @@
 ---
 # defaults file for ssmtp-role
+ssmtp_package_state: latest
 ssmtp_authorized_group: ssmtp
 ssmtp_postmaster:
 ssmtp_mailhub_host:
