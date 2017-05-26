@@ -18,10 +18,10 @@
     ssmtp_mailhub_port: 587
     ssmtp_auth_user: "ssmtp.test1@gmail.com"
     ssmtp_auth_password:
-    ssmtp_use_tls: "YES"
-    ssmtp_starttls: "YES"
+    ssmtp_use_tls: yes
+    ssmtp_starttls: yes
     ssmtp_rewrite_domain: "gmail.com"
-    ssmtp_from_line_override: "YES"
+    ssmtp_from_line_override: yes
     ssmtp_docker_host: yes
     ssmtp_authorized_users:
       - john

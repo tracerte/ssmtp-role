@@ -5,11 +5,11 @@ mailhub={{ ssmtp_mailhub_host }}:{{ ssmtp_mailhub_port }}
 AuthMethod={{ ssmtp_auth_method }}
 AuthUser={{ ssmtp_auth_user }}
 AuthPass={{ ssmtp_auth_password }}
-UseTLS={{ ssmtp_use_tls }}
-UseSTARTTLS={{ ssmtp_starttls }}
+UseTLS={{ ssmtp_use_tls|ternary('YES','NO') }}
+UseSTARTTLS={{ ssmtp_starttls|ternary('YES','NO') }}
 
 rewriteDomain={{ ssmtp_rewrite_domain }}
 
-FromLineOverride={{ ssmtp_from_line_override }}
+FromLineOverride={{ ssmtp_from_line_override|ternary('YES','NO') }}
 
 hostname={{ ssmtp_hostname }}

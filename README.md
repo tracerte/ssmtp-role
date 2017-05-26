@@ -21,7 +21,7 @@ Defaults:
 * ssmtp_auth_user:
 * ssmtp_auth_password:
 * ssmtp_use_tls:
-* ssmtp_starttls: "YES"
+* ssmtp_starttls: yes
 * ssmtp_starttls:
 * ssmtp_rewrite_domain:
 * ssmtp_from_line_override:
